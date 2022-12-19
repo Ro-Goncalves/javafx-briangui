@@ -2,7 +2,9 @@
 
 Fonte: tutorialspoint/javafx/index.htm
 
-## Principais classes da API
+## Aplicativo
+
+### Principais classes da API
 
 * **javafx.animation** - Contém classes para adicionar animações baseadas em transição, como preenchimento, esmaecimento, rotação, escala e translação.
 * **javafx.application** - Contém um conjunto de classes responsáveis pelo ciclo de vida do aplicativo JavaFX
@@ -14,7 +16,7 @@ Fonte: tutorialspoint/javafx/index.htm
 
 ![arquitetura-javafx](arquitetura-javafx.drawio.png)
 
-## Scene Graph
+### Scene Graph
 
 O **scene graph** é o ponto de partida de uma aplicação JavaFX, ele contém todos os nós, que nada mais sao do que objetos visuais que podem incluir:
 
@@ -29,7 +31,7 @@ Uma coleção de nós gera um **scene graph**.
 
 Cada **node** possui somente um pai, e aquele que não pai, chamamos de **root node**. O **node** que não possui filho chamamos de **lead node**, já o que possui filho é o **branch node**. Cada **node** é único em um **scene graph** e suas propriedades podem ser manipuladas.
 
-## Prism
+### Prism
 
 É um **pipeline** gráfico acelerador por hardrware de alto desempenho que usar:
 
@@ -39,15 +41,15 @@ Cada **node** possui somente um pai, e aquele que não pai, chamamos de **root n
 
 Quando o sistema possuí gráficos integrados, os gráficos são mais suaves, quando não existir ele usará renderização por software.
 
-## GWT (Glass Windowing Toolkit)
+### GWT (Glass Windowing Toolkit)
 
 Fornece serviço para gerenciamento de janelas, temporizadore, superfícies e filas de evento. É ele que conecta a plataforma ao simtema operacional.
 
-## Quantum Toolkit
+### Quantum Toolkit
 
 É a abstração de baixo nível dos componentes gráficos que os deixa disponíveis ao JavaFX.
 
-## WebView
+### WebView
 
 Com a tecnólogia **Web Kit** possibilita a incorporação ed conteúto HTML ao **scene graph**. Suporta tecnologias como: HTML5, CSS, JavaScript, DOM e SVG. As possibilidades são muitas, dentre elas destacamos:
 
@@ -59,7 +61,7 @@ Com a tecnólogia **Web Kit** possibilita a incorporação ed conteúto HTML ao 
 * Executar comando JavaScript.
 * Lidar com eventos.
 
-## Media Engine
+### Media Engine
 
 O **media engine** é baseado no mecanismo de reprodução de conteúdo de áucio e vídeo **Streamer** que da suporte à: **MP3, WAV, AIFF e FLV**. Quem cuida disso éa biblioteca `javafx.scene.media`. Ela fornece os componentes:
 
@@ -73,7 +75,7 @@ Em geral, o aplicativo JavaFX possui os componente: **Stage, Scene e Scene Graph
 
 ![application-struture](application-struture.drawio.png)
 
-### Stage
+#### Stage
 
 É nela que encontramos todos os objetos do aplicativo, seria uma janela. É representada pela classe **Stage** do pacote `javafx.stage`. O primeiro **stage** é criado pela plataforma. O método `start()` da classe **Application** recebe um objeto **stage**. O **stage** possui dois parâmetros para posição **Width e Height**, dividi-se em *Área De Conteúdo e Decorações (Barra De Título e Bordas)*.
 
@@ -87,11 +89,11 @@ Os **stages** são:
 
 Seu conteúdo pode ser exibido chamando `show()`.
 
-### Scene
+#### Scene
 
 Representa o conteúdo do aplicativo. A clase **Scene** faz parte do pacote `javafx.scene`, é ele que é adicionado a um estágio. Também podemo definir o seu tamanho, bem como o **root node** na hora de intânciar a classe.
 
-### Scene Graph e Nodes
+#### Scene Graph e Nodes
 
 O **scene graph** é uma estrutura no formato de árvore que representa o conteúdo de uma **scene**, os **nodes** são os objetos visial de um **scene graph**. Já comentamos os tipos de [**nodes**](#scene-graph), e um pouco sobre os tipos, que irei reforçar e complementar aqui.
 
@@ -102,7 +104,7 @@ O **scene graph** é uma estrutura no formato de árvore que representa o conte�
   * **WebView** - Gerencia o mecânismo que trabalho com conteúdo web
 * **leaf node** - Aquele que não possui filho, exemplo: *Rectangle, Ellipse, Box, ImageVies, MediaView etc*
 
-## Primeiro contado com JavaFX
+### Primeiro contado com JavaFX
 
 Primeiro devemos sobrescrever o método abstrato `start()` da classe **Application** que é a porteira do brinquedo. Essa classe deve ser herdada em nossa classe principal. 
 
@@ -136,7 +138,7 @@ Dentro de `start()`, precisaremos seguir às seguinte etapas:
 * Criar uma **scene** com a dimensões desejadas e passar o **root node**.
 * Criar um **stage**, adicionar a **scene** e mostrar o conteúdo do **stage**.
 
-### Preparando o Scene Graph
+#### Preparando o Scene Graph
 
 Primeiro deveremos criar um **root node**, para isso poderemos escolher um entre *Grupo, Region ou WebView*.
 
@@ -177,7 +179,7 @@ Uma breve imagem sobre:
 
 ![diagrama-hierarquia](diagrama-hierarquia.drawio.png)
 
-### Preparando a Scene
+#### Preparando a Scene
 
 O pacote `javafx.scene` possui a classe **Scene**, sua instância representa uma **scene**. Quando criamo o objeto é obrigatório passar o **root node**.
 
@@ -191,7 +193,7 @@ Também podemos definir o tamanho da **scene**, para isso:
 Scene scene = new Scene(roo, 600, 300);
 ```
 
-### Preparando o **Stage**
+#### Preparando o **Stage**
 
 Todo aplicativo deve conter esse contêiner, pois é ele que fornece uma janela a ele. É uma instância da classe **Stage** do pacote `javafx.stage`. Um objeto dessa classe é passado como parâmetro para o método `start()` da classe **Application**.
 
@@ -209,7 +211,7 @@ primaryStage.setScene(scene);
 primaryStage.show();
 ```
 
-## Ciclo de vida do aplicativo
+### Ciclo de vida do aplicativo
 
 Os método do siclo de vida são:
 
@@ -224,17 +226,17 @@ Além desses temos o método estático `launch()` que inicia o aplicativo. Quand
 * O método `start()` é chamado.
 * Espera o aplicativo fechar e chama o método `stop()`.
 
-## Encerrando o aplicativo
+### Encerrando o aplicativo
 
 O aplicativo é encerrado implicitamente quando a última janela for fechada, esse comportamento pode ser alterado passando `false` ao método estático `setImplicitExit()`.
 
 Para encerrar implicitamento basta usar: `Plataform.exit()` ou `System.exit(init)`.
 
-## Exemplo 1 - Criando Uma Janela Vazia
+### Exemplo 1 - Criando Uma Janela Vazia
 
 Mãos na massa.
 
-### E1 - Passo 1
+#### E1 - Passo 1
 
 Criar uma classe que herde de **Application** e implemente o método `start()`
 
@@ -247,7 +249,7 @@ public class App extends Application{
 }
 ```
 
-### E1 - Passo 2
+#### E1 - Passo 2
 
 Criando um objeto **Group** dentro do método `start()`.
 
@@ -261,7 +263,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### E1 - Passo 3
+#### E1 - Passo 3
 
 Criando um objeto **Scene** que receberá nosso *root* e as dimensões da tela.
 
@@ -276,7 +278,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### E1 - Passo 4
+#### E1 - Passo 4
 
 Definindo um título usando `setTitle()` da clase **Stage**. A instância dessa classe é representada pelo objeto `primaryStage`.
 
@@ -293,7 +295,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### E1 - Passo 5
+#### E1 - Passo 5
 
 Adicionando o objeto **Scene** ao **Stage** com `setScene()`.
 
@@ -311,7 +313,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### E1 - Passo 6
+#### E1 - Passo 6
 
 Usar o método `show()` do objeto **Stage** para mostrar o conteúdo.
 
@@ -330,7 +332,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### E1 - Passo 7
+#### E1 - Passo 7
 
 Iniciando o aplicativo com `launch()`, faremos isso dentro do método estático `main`.
 
@@ -353,11 +355,11 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-## Exemplo 2 - Desenhar uma linha reta
+### Exemplo 2 - Desenhar uma linha reta
 
 Aproveitando o que já foi criado, iremos incluir uma linha reta.
 
-### E2 - Criando uma linha
+#### E2 - Criando uma linha
 
 A linha é criada a partir da intância da classe **Line** do pacote `javafx.scene.shape`.
 
@@ -366,7 +368,7 @@ A linha é criada a partir da intância da classe **Line** do pacote `javafx.sce
 Line line = new Line();
 ```
 
-### E2 - Definindo a propriedades da linha
+#### E2 - Definindo a propriedades da linha
 
 A coordenadas da linha são configuradas com os métodos `startX()`, `startY()`, `endX()` e `endY()`.
 
@@ -378,7 +380,7 @@ line.setEndX(500.0);
 line.setEndY(150.0);
 ```
 
-### E3 - Inserimos nossa linha no grupo
+#### E2 - Inserimos nossa linha no grupo
 
 Inserindo a linha no grupo.
 
@@ -387,8 +389,62 @@ Inserindo a linha no grupo.
 Group root = new Group(line);
 ```
 
-### E3 - Resultado
+#### E2 - Resultado
 
 ![tela-com-linha](img/tela-com-linha.png)
 
 ### Exemplo 3 - Exibindo Texto
+
+Vamos fazer o mesmo do que com o exemplo dois, porém com um objeto do tipo `Text`.
+
+#### E3 - Incorporando Texto
+
+Os objetos que representam um texto no aplicação são instâncias da classe **Text** do pacote `javafx.scene.text`. Ao criar o objeto podemos passar ou não o texto que ele deverá ter.
+
+```java
+//Criando o objeto texto
+Text text = new Text();
+```
+
+#### E3 - Configurando a Fonte
+
+O método `setFont()` recebe um objeto do tipo **Font** como parâmetro. Esse objeto pode controlar todo o estilo da fonte que iremos utilizar, por hora, vamos altera o tamanho.
+
+```java
+//Configurando o tamanho da fonte
+text.setFont(new Font(45));
+```
+
+#### E3 - Definindo a posição do objeto
+
+Usaremos o mesmo padrão de coordenadas da linha, o plano XY. Aqui definiremos o vértice inicial.
+
+```java
+//Coordenadas do vertice inical
+text.setX(200);
+text.setY(150);
+```
+
+#### E3 - Definindo o texto que será apresentado
+
+Utilizando o método `setText()`, podemos indicar à aplicação qual o texto que deverá ser renderizado.
+
+```java
+//Definindo o texto
+text.setText("Brian - Gui");
+```
+
+#### E3 - Adicionar o Text ao Group
+
+Por fim, adicionamos ao grupo.
+
+```java
+//Criando o group e passando a linha como parâmetro
+Group root = new Group(line, text);
+```
+
+#### E3 - Resultado
+
+![tela-com-text](img/tela-com-texto.png)
+
+

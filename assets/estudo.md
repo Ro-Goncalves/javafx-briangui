@@ -447,4 +447,147 @@ Group root = new Group(line, text);
 
 ![tela-com-text](img/tela-com-texto.png)
 
+## Formas 2D
 
+Com o JavaFX podemos desenhar:
+
+* Figuras predefinidas como: **Linha, Retangulo, Circulo, Elipse, Poligonos, Curva Cúbica, Curva Quadrática, Arco**.
+* *Path elements* como: **MoveTo Path Element, Linha, Linha Horizontal, Linha Vertical, Curva Cúbica, Curva Quadrática, Arco**
+* Também é possível utilizar arquivos SVG.
+
+Cada forma 2D é representada por uma classe, e todas elas estão presentes no pacote `javafx.scene.shape`. A classe **Shape** é a que representa todas as formas bidimensionais.
+
+## Criando um forma 2D
+
+O passo-a-passo é mais ou menos o mesmo que vimos até aqui:
+
+* Intânciar um objeto com a classe da forma que desejamos usar
+* Definiar as propriedades da forma
+* Adicionar a forma ao **Group**
+
+Assim como foi feito nos exemplos anteriores.
+
+TODO: Criar um exemplo para cada
+
+### Formas providas pelo JavaFX
+
+|Forma|Descrição|
+|:---|:---|
+|**Linha**| É representada pela classe **Line** do pacote `javafx.scene.shape`|
+|**Retângulo**| É representada pela classe **Rectangle** do pacote `javafx.scene.shape`|
+|**Retângulo Arredondado**| É um retângulo com arestas arqueadas|
+|**Círculo**| É representada pela classe **Circle** do pacote `javafx.scene.shape`|
+|**Elipse**| É representada pela classe **Ellipse** do pacote `javafx.scene.shape`|
+|**Polígono**| É representada pela classe **Polygon** do pacote `javafx.scene.shape`|
+|**Polilinha**| Como se fosse um polígono, só que não é fechado no final. É representada pela classe **Polygon** do pacote `javafx.scene.shape`|
+|**Curva Cúbica**| Curva para uma equação de 3º grau. É representada pela classe **CubicCurve** do pacote `javafx.scene.shape`|
+|**Curva Quadrática**| Curva para uma equação de 2º grau. É representada pela classe **QuadCurve** do pacote `javafx.scene.shape`|
+|**Arco**| É representada pela classe **Arc** do pacote `javafx.scene.shape`, esses arcos podem ser **Aberto, Corda, Redondo**|
+|**SVGPath**| É representada pela classe **SVGPath** do pacote `javafx.scene.shape`. Com ela podemos construir imagens analisando caminhos SVG; a classe **SVGPath** possui a propriedade `String content` que representa o caminho SVG|
+
+## Desenhando mais formas através da classe Path
+
+Existem momentos em que as formas predefinidas não dão conta do recado, por exemplo: desenhar uma estrela, para isso usaremos uma outra classe.
+
+### A classe Path
+
+A classe **Path** é utilizada para desenhar o contorno de formas geómetricas complexas. A ele passamos uma lista de observaveis conténdo **Path Elements** como *moveTo, LineTo, HlineTo, VlineTo, ArcTo, QuadCurveTo, CubicCurveTo*.
+
+Podemos passar a lista de observaveis de duas formas, no construtor ou utilizando o método `addAll()`.
+
+```java
+Path myshape = new Path(pathElement1, pathElement2, pathElement3)
+
+Path myshape = new Path();
+myshape.getElements().addAll(pathElement1, pathElement2, pathElement3);
+```
+
+#### MoveTo
+
+Move a posição atual do **Path** para um outro. Normalmente é usado para definir o ponto inícial duma forma. É representada pela classe **MoveTo** do pacote `javafx.scene.shape`. Possui duas propriedade:
+
+* **X**: Coordenada x do ponto ao qual um linha deve ser desenhada a partir da posição atual.
+* **Y**: Coordenada y do ponto ao qual um linha deve ser desenhada a partir da posição atual.
+
+Esses valores podem ser passados no construtor da classe, caso não passe o valor será definido como (0,0) e poderá ser passado posteriormente com os métodos `setX()` e `setY()`.
+
+```java
+MoveTo moveTo = new MoveTo(x, y);
+
+MoveTo moveTo = new MoveTo();
+moveTo.setX(x);
+moveTo.setY(y);
+```
+
+#### Exemplo - Desenhando um caminho complexo
+
+O código para criar nossa imagem será:
+
+```java
+//Criando um Path
+Path path = new Path();
+
+//Movendo ao ponto inicial
+MoveTo initialPath = new MoveTo(108, 71);
+//Criando a 1ª linha
+LineTo lineTo1 = new LineTo(321, 161);
+//Criando a 2ª linha
+LineTo lineTo2 = new LineTo(126, 232);
+//Criando a 3ª linha
+LineTo lineTo3 = new LineTo(232, 52);
+//Criando a 4ª linha
+LineTo lineTo4 = new LineTo(269, 250);
+//Criando a 5ª linha
+LineTo lineTo5 = new LineTo(108, 71);
+
+//Adicionando todos os elementos ao Path
+path.getElements().add(initialPath);
+path.getElements().addAll(lineTo1, lineTo2, lineTo3, lineTo4, lineTo5);
+
+Group root = new Group(path); 
+```
+
+**Resultado:**
+
+![tela-com-figura-complexa](img/tela-com-figura-complexa.png)
+
+#### Path elements fornecidos pelo JavaFX
+
+|Forma|Descrição|
+|:---|:---|
+|**LineTo**| Desenha uma linha do ponto inicial até o final. Representado pela classe **LineTo** do pacote `javafx.scene.shape`|
+|**HlineTo**| Desenha uma linha horizontal a partir do ponto atual até a posição especificada. Representado pela classe **HlineTo** do pacote `javafx.scene.shape`|
+|**VlineTo**| Desenha uma linha vertical a partir do ponto atual até a posição especificada. Representado pela classe **VlineTo** do pacote `javafx.scene.shape`|
+|**QuadCurveTo**| Desenha uma curva quadrática a partir do ponto atual até a posição especificada. Representado pela classe **QuadraticCurveTo** do pacote `javafx.scene.shape`|
+|**CubicCurveTo**| Desenha uma curva cúbica a partir do ponto atual até a posição especificada. Representado pela classe **CubicCurveTo** do pacote `javafx.scene.shape`|
+|**ArcTo**| Desenha um arco a partir do ponto atual até a posição especificada. Representado pela classe **ArcTo** do pacote `javafx.scene.shape`|
+
+TODO: Fazer um exemplo de cada
+
+## Propriedades de objetos 2D
+
+### Stroke Type
+
+### Stroke Width
+
+### Stroke Fill
+
+### Stroke
+
+### Stroke Line
+
+### Stroke Miler Limit
+
+### Stroke Line Cap
+
+### Smooth
+
+## Operação em objetos 2D
+
+Se adicionarmos duas forma a um grupo, a segunda irá sobrepor a primeiro. Além das transformações *rotate, scale, translate etc* e das transições, *animations*, também podemos fazer as operações **Union, Subtraction e Intersection**.
+
+|Operação|Descrição|
+|:---|:---|
+|**Union**|Tem como entrada duas ou mais formas, retorna a área ocupada por elas|
+|**Intersection**|Tem como entrada duas ou mais formas, retorna a área de interseção entre elas|
+|**Subtraction**|Tem como entrada duas ou mais formas, retorna a área da primeira excluindo a sobreposta pelas demais|

@@ -230,11 +230,11 @@ O aplicativo é encerrado implicitamente quando a última janela for fechada, es
 
 Para encerrar implicitamento basta usar: `Plataform.exit()` ou `System.exit(init)`.
 
-## Exemplo - Criando Uma Janela Vazia
+## Exemplo 1 - Criando Uma Janela Vazia
 
 Mãos na massa.
 
-### Passo 1
+### E1 - Passo 1
 
 Criar uma classe que herde de **Application** e implemente o método `start()`
 
@@ -247,7 +247,7 @@ public class App extends Application{
 }
 ```
 
-### Passo 2
+### E1 - Passo 2
 
 Criando um objeto **Group** dentro do método `start()`.
 
@@ -261,7 +261,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### Passo 3
+### E1 - Passo 3
 
 Criando um objeto **Scene** que receberá nosso *root* e as dimensões da tela.
 
@@ -276,7 +276,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### Passo 4
+### E1 - Passo 4
 
 Definindo um título usando `setTitle()` da clase **Stage**. A instância dessa classe é representada pelo objeto `primaryStage`.
 
@@ -293,7 +293,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### Passo 5
+### E1 - Passo 5
 
 Adicionando o objeto **Scene** ao **Stage** com `setScene()`.
 
@@ -311,7 +311,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### Passo 6
+### E1 - Passo 6
 
 Usar o método `show()` do objeto **Stage** para mostrar o conteúdo.
 
@@ -330,7 +330,7 @@ public class TesteAplicativoJanelaVazia extends Application{
 }
 ```
 
-### Passo 7
+### E1 - Passo 7
 
 Iniciando o aplicativo com `launch()`, faremos isso dentro do método estático `main`.
 
@@ -352,3 +352,43 @@ public class TesteAplicativoJanelaVazia extends Application{
     }
 }
 ```
+
+## Exemplo 2 - Desenhar uma linha reta
+
+Aproveitando o que já foi criado, iremos incluir uma linha reta.
+
+### E2 - Criando uma linha
+
+A linha é criada a partir da intância da classe **Line** do pacote `javafx.scene.shape`.
+
+```java
+//Criando a linha
+Line line = new Line();
+```
+
+### E2 - Definindo a propriedades da linha
+
+A coordenadas da linha são configuradas com os métodos `startX()`, `startY()`, `endX()` e `endY()`.
+
+```java
+//Coordenadas da linha
+line.setStartX(100.0);
+line.setStartY(150.00);
+line.setEndX(500.0);
+line.setEndY(150.0);
+```
+
+### E3 - Inserimos nossa linha no grupo
+
+Inserindo a linha no grupo.
+
+```java
+//Criando o grupo e passando a linha como parâmetro
+Group root = new Group(line);
+```
+
+### E3 - Resultado
+
+![tela-com-linha](img/tela-com-linha.png)
+
+### Exemplo 3 - Exibindo Texto

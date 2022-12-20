@@ -69,7 +69,7 @@ O **media engine** é baseado no mecanismo de reprodução de conteúdo de áuci
 * **Media Player** - Reproduz o conteúdo de midia.
 * **Media View** - Exibe a midia.
 
-## Estrutura Do Aplicativo JavaFX
+### Estrutura Do Aplicativo JavaFX
 
 Em geral, o aplicativo JavaFX possui os componente: **Stage, Scene e Scene Graph**.
 
@@ -106,7 +106,7 @@ O **scene graph** é uma estrutura no formato de árvore que representa o conte�
 
 ### Primeiro contado com JavaFX
 
-Primeiro devemos sobrescrever o método abstrato `start()` da classe **Application** que é a porteira do brinquedo. Essa classe deve ser herdada em nossa classe principal. 
+Primeiro devemos sobrescrever o método abstrato `start()` da classe **Application** que é a porteira do brinquedo. Essa classe deve ser herdada em nossa classe principal.
 
 No método `main()` iniciaremos o aplicativo chamando `launch()`, esse método é encarregado de chamar o `start()`.
 
@@ -622,3 +622,67 @@ Se adicionarmos duas forma a um grupo, a segunda irá sobrepor a primeiro. Além
 |**Subtraction**|Tem como entrada duas ou mais formas, retorna a área da primeira excluindo a sobreposta pelas demais|
 
 ## Text
+
+O **text node** é representado pela classe **Text** do pacote `javafx.scene.shape`, ela herda a classe **Shape** de `javafx.scene.shape`. Sendo assim, além das propriedades de texto ela tem propriedades dos **shape nodes**.
+
+### Criando um text node
+
+Criando uma instância da classe **Text**
+
+```java
+Text text = new Text();
+```
+
+Podemos adicionar o texto com o método `setText()`
+
+```java
+text.setText("Brian - Gui");
+```
+
+Também podemos definir a posição de origem com os métodos `setX()` e `setY()`
+
+```java
+text.setX(200);
+text.setY(150);
+```
+
+### Font do texto
+
+Alteramos a fonte do texto com o método `setFont()` que recebe um objeto do tipo **Font** do pacote `javafx.scene.text`. A classe **Font** possui o método estático `font()` que aceita quatro parâmetros:
+
+* **family** - String com o nome da familia da fonte.
+* **weight** - Representa o "peso" da fonte, que pode ser *FontWeight.BLACK, .BOLD, .EXTRA_BOLD, .EXTRA_LIGHT, .LIGHT, .MEDIUM, .NORMAL, .SEMI_BOLD, .THIN*
+* **posture** - Representa a "postura" da fonte, pode ser *FontPosture.REGULAR, .ITALIC*
+* **size** - Representa o tamanho da fonte.
+
+```java
+text.setFont(Font.font("verdana", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 45));
+```
+
+### Stroker e Color
+
+A cor do texto pode ser difinida com o método `setFill()`, que foi herdado de **Shape**.
+
+```java
+text.setFill(Color.BLUEVIOLET);
+```
+
+Também é possível definir o *stroke* com:
+
+```java
+text.setStrokeWidth(2);
+text.setStroke(Color.BLACK);
+```
+
+### Aplicando text decoration
+
+É possível riscar o texto com o método `setStrikethrough()` e sublinhar com `setUnderline()`
+
+```java
+text2.setStrikethrough(true);
+text3.setUnderline(true);
+```
+
+### Text - Resultado
+
+![teste-texto](img/teste-texto.png)

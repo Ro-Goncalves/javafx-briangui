@@ -1,11 +1,11 @@
-package br.com.brconsorcios;
+package br.com.briangui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
@@ -17,17 +17,24 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("telaprincipal"), 640, 480);
+        scene.getStylesheets().add(App.class.getResource("styles/telaprincipal.css").toString());
+
+        stage.setTitle("Brian - Gui");
+        stage.setMaximized(true);
+
+        Image applicationIcon = new Image(App.class.getResourceAsStream("icons/iconeAplicacao.png"));
+        stage.getIcons().add(applicationIcon);
         stage.setScene(scene);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 

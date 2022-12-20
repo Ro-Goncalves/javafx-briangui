@@ -1,10 +1,7 @@
-package br.com.brconsorcios;
-
-import java.util.List;
+package br.com.briangui.teste;
 
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;

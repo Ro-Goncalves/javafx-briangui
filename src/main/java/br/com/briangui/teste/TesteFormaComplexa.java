@@ -1,4 +1,4 @@
-package br.com.brconsorcios;
+package br.com.briangui.teste;
 
 import javafx.application.Application;
 import javafx.scene.Group;

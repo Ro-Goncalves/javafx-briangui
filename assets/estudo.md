@@ -457,7 +457,7 @@ Com o JavaFX podemos desenhar:
 
 Cada forma 2D é representada por uma classe, e todas elas estão presentes no pacote `javafx.scene.shape`. A classe **Shape** é a que representa todas as formas bidimensionais.
 
-## Criando um forma 2D
+### Criando um forma 2D
 
 O passo-a-passo é mais ou menos o mesmo que vimos até aqui:
 
@@ -466,8 +466,6 @@ O passo-a-passo é mais ou menos o mesmo que vimos até aqui:
 * Adicionar a forma ao **Group**
 
 Assim como foi feito nos exemplos anteriores.
-
-TODO: Criar um exemplo para cada
 
 ### Formas providas pelo JavaFX
 
@@ -485,11 +483,11 @@ TODO: Criar um exemplo para cada
 |**Arco**| É representada pela classe **Arc** do pacote `javafx.scene.shape`, esses arcos podem ser **Aberto, Corda, Redondo**|
 |**SVGPath**| É representada pela classe **SVGPath** do pacote `javafx.scene.shape`. Com ela podemos construir imagens analisando caminhos SVG; a classe **SVGPath** possui a propriedade `String content` que representa o caminho SVG|
 
-## Desenhando mais formas através da classe Path
+### Desenhando mais formas através da classe Path
 
 Existem momentos em que as formas predefinidas não dão conta do recado, por exemplo: desenhar uma estrela, para isso usaremos uma outra classe.
 
-### A classe Path
+#### A classe Path
 
 A classe **Path** é utilizada para desenhar o contorno de formas geómetricas complexas. A ele passamos uma lista de observaveis conténdo **Path Elements** como *moveTo, LineTo, HlineTo, VlineTo, ArcTo, QuadCurveTo, CubicCurveTo*.
 
@@ -502,7 +500,7 @@ Path myshape = new Path();
 myshape.getElements().addAll(pathElement1, pathElement2, pathElement3);
 ```
 
-#### MoveTo
+##### MoveTo
 
 Move a posição atual do **Path** para um outro. Normalmente é usado para definir o ponto inícial duma forma. É representada pela classe **MoveTo** do pacote `javafx.scene.shape`. Possui duas propriedade:
 
@@ -562,27 +560,58 @@ Group root = new Group(path);
 |**CubicCurveTo**| Desenha uma curva cúbica a partir do ponto atual até a posição especificada. Representado pela classe **CubicCurveTo** do pacote `javafx.scene.shape`|
 |**ArcTo**| Desenha um arco a partir do ponto atual até a posição especificada. Representado pela classe **ArcTo** do pacote `javafx.scene.shape`|
 
-TODO: Fazer um exemplo de cada
+### Propriedades de objetos 2D
 
-## Propriedades de objetos 2D
+#### Stroke Type
 
-### Stroke Type
+```java
+Rectangle rectangle = new Rectangle(20, 50, 560, 200);
+rectangle.setStrokeType(StrokeType.CENTERED);
+```
 
-### Stroke Width
+#### Stroke Width
 
-### Stroke Fill
+```java
+rectangle.setStrokeWidth(20.0);
+```
 
-### Stroke
+#### Stroke Fill
 
-### Stroke Line
+```java
+rectangle.setFill(Color.BLUE);
+```
 
-### Stroke Miler Limit
+#### Stroke
 
-### Stroke Line Cap
+```java
+rectangle.setStroke(Color.RED);
+```
 
-### Smooth
+#### Stroke Line
 
-## Operação em objetos 2D
+```java
+rectangle.setStrokeLineJoin(StrokeLineJoin.ROUND);
+```
+
+#### Stroke Miler Limit
+
+```java
+rectangle.setStrokeMiterLimit(5.0);
+```
+
+#### Stroke Line Cap
+
+```java
+rectangle.setStrokeLineCap(StrokeLineCap.BUTT);
+```
+
+#### Smooth
+
+```java
+rectangle.setSmooth(false);
+```
+
+### Operação em objetos 2D
 
 Se adicionarmos duas forma a um grupo, a segunda irá sobrepor a primeiro. Além das transformações *rotate, scale, translate etc* e das transições, *animations*, também podemos fazer as operações **Union, Subtraction e Intersection**.
 
@@ -591,3 +620,5 @@ Se adicionarmos duas forma a um grupo, a segunda irá sobrepor a primeiro. Além
 |**Union**|Tem como entrada duas ou mais formas, retorna a área ocupada por elas|
 |**Intersection**|Tem como entrada duas ou mais formas, retorna a área de interseção entre elas|
 |**Subtraction**|Tem como entrada duas ou mais formas, retorna a área da primeira excluindo a sobreposta pelas demais|
+
+## Text

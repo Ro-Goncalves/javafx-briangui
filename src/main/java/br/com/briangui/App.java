@@ -20,8 +20,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("telaprincipal"), 640, 480);
         scene.getStylesheets().add(App.class.getResource("styles/telaprincipal.css").toString());
 
-        stage.setTitle("Brian - Gui");
-        stage.setMaximized(true);
+        stage.setTitle("Brian - Gui");        
 
         Image applicationIcon = new Image(App.class.getResourceAsStream("icons/iconeAplicacao.png"));
         stage.getIcons().add(applicationIcon);

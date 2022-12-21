@@ -763,3 +763,69 @@ glow.setLevel(1.0);
 |Point.Spot|A mesma coisa que o anterior. A Classe q o represta é a **Point.Spot**.
 
 ## Transformações
+
+As transformações estão presentes no pacote `javafx.scene.transform`, citaremos algumas delas:
+
+|Transformação|Descrição|
+|:---|:---|
+|Rotation|giramos o objeto em um determinado ângulo.|
+|Scaling|Altera o tamanho do objeto.|
+|Translation|Move o objeto a outro ponto na tela.|
+|Shearing|Inclina o objeto.|
+
+### Multiplas transformações
+
+É possível fazer várias transformações em um objeto. Por exemplo vamos aplicar **rotation, scaling e translation** a um retângulo.
+
+```java
+Rectangle rectangle = new Rectangle(50, 50, 100, 75);
+
+rectangle.setFill(Color.BURLYWOOD);
+rectangle.setStroke(Color.BLACK);
+
+Rotate rotate = new Rotate();
+rotate.setAngle(20);
+rotate.setPivotX(150);
+rotate.setPivotY(225);
+
+Scale scale = new Scale();
+scale.setX(1.5);
+scale.setY(1.5);
+scale.setPivotX(300);
+scale.setPivotY(135);
+
+Translate translate = new Translate();
+translate.setX(250);
+translate.setY(0);
+translate.setZ(0);
+```
+
+![multiplas-transformacoes](img/multiplas-transformacoes.png)
+
+### Transformações em objetos 3D
+
+Também é possível transformar objetos 3D.
+
+```java
+Box box = new Box();
+
+box.setWidth(150.0);
+box.setHeight(150.0);
+box.setDepth(150.0);
+
+Translate translate = new Translate();
+translate.setX(400);
+translate.setY(150);
+translate.setZ(25);
+
+Rotate rxBox = new Rotate(0, 0, 0, 0, Rotate.X_AXIS);
+Rotate ryBox = new Rotate(0, 0, 0, 0, Rotate.Y_AXIS);
+Rotate rzBox = new Rotate(0, 0, 0, 0, Rotate.Z_AXIS);
+rxBox.setAngle(30);
+ryBox.setAngle(50);
+rzBox.setAngle(30);
+
+box.getTransforms().addAll(translate, rxBox, ryBox, rzBox);
+```
+
+![multiplas-transformacoes-3d](img/multiplas-transformacoes-3d.png)

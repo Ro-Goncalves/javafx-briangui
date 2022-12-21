@@ -686,3 +686,80 @@ text3.setUnderline(true);
 ### Text - Resultado
 
 ![teste-texto](img/teste-texto.png)
+
+## Effects
+
+São ações executadas no **nodes** que visam aprimorar sua aparência. Alguns dos efeitos que podemos aplicar são: **bloom, blur, glow etc**. Todos os efeitos são representados por uma classe e todos eles estão no pacot `javafx.scene.effect.
+
+### Aplicando efeitos em um node
+
+Utilizamos o método `setEffect()` que recebe um objeto de efeito como parâmetro. Para aplicar um efeito basta:
+
+* Criar o **node**.
+* Instânciar a classe do efeito.
+* Definir as propriedades do efeito.
+* Aplicar o efeito ao **node** usando o método `setEffect()`.
+
+#### Criando um Image Node
+
+Como exemplo vamos colocar brilho em uma imagem. Para isso iremos instânciar a imagem da seguinte forma:
+
+```java
+Image image = new Image("https://www.tutorialspoint.com/green/images/logo.png");
+
+ImageView imageView = new ImageView(image);
+imageView.setX(100);
+imageView.setY(70);
+imageView.setFitHeight(200);
+imageView.setFitWidth(400);
+imageView.setPreserveRatio(true);
+```
+
+#### Instânciando uma classe effect
+
+Como nosso desejo é ajustar o brilho da imagem, iremos utilizar a classe **Glow**.
+
+```java
+Glow glow = new Glow();
+```
+
+#### Definindo as propriedades do efeito
+
+Cada propriedade tera o seu proprio método *set*. Por exemplo:
+
+```java
+glow.setLevel(0.9);
+```
+
+#### Adicionando o effect ao node
+
+Por fim a parte mais fácil, usar o método `setEffect()` no **node**.
+
+```java
+glow.setLevel(1.0);
+```
+
+### Alguns efeitos diponiveis
+
+|Shape|Descrição|
+|:---|:---|
+|Color Adjust|É possível ajustar a **hue, saturation, brightness e contrast** de cada pixel com a classe **ColorAjust**.|
+|Color Input|Exibe uma caixa retangular da cor especificada dentro do **node** em que for aplicado, é usado como entrata para outros efeitos. A classe que o representa é a **ColorInput**.|
+|Image Input|É usada para passar a imagem especificada como entrata a outro efeito. A classe que o representa é a **ImageInput**.|
+|Blend|Quando os pixeis de uma **node** sobrepoem o de outro, podemos usar essa classe para mescla-los. A classe que o representa é a **Blend**. Para mais informações: [blend]("https://www.tutorialspoint.com/javafx/blend_effect.html").|
+|Bloom|Aplica o efeito de *bloom* ao **node**; faz com que alguns pixeis brilhem. A Classe que o representa é a **Bloom**.|
+|Glow|Efeito parecido com o bloom. A Classe que o representa é a **Glow**.|
+|Box Blur|Aplica um simples filtro de desfoque. A Classe que o representa é a **BoxBlur**.|
+|GaussianBlur|Mesma coisa que o anterior, porém usa um núcleo de convolução Gaussiano para desfocar a imagem. A Classe que o representa é a **GaussianBlur**.|
+|MotionBlur|Mesma coisa que o anterior, porém redeve um parâmetro a mais, o ângulo. A Classe que o representa é a **MotionBlur**.|
+|Reflection|Adiciona um reflexo na parte inferior do **node**. A Classe que o representa é a **Reflection**.|
+|SepiaTone|Tonaliza o **node** cm a cor marrom avermelhada. A Classe que o representa é a **SepiaTone**.|
+|Shadow|Cria uma replica do **node** com bordas borradas. A Classe que o representa é a **Shadow**.|
+|DropShadow| Cria uma sombra atrás do **node**. A Classe que o representa é a **DropShadow**.|
+|InnerShadow|Cria uma sombra dentro do **node**. A Classe que o representa é a **InnerShadow**.|
+|Lighting|Usado para simular um fonte de luz, alguns dos tipos de fonte são: **point, distant e spot**. A Classe que o representa é a **Lighting**.|
+|Light.Distant|Simula um fonte de luz distante. A Classe que o representa é a **Light.Distant**.|
+|Light.Spot|Simula um fonte de luz sobre o **node**. A Classe que o representa é a **Light.Spot**.|
+|Point.Spot|A mesma coisa que o anterior. A Classe q o represta é a **Point.Spot**.
+
+## Transformações

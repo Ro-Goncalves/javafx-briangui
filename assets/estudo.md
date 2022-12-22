@@ -829,3 +829,88 @@ box.getTransforms().addAll(translate, rxBox, ryBox, rzBox);
 ```
 
 ![multiplas-transformacoes-3d](img/multiplas-transformacoes-3d.png)
+
+## Animações
+
+São ilusões de movimento em objetos. Podemos animar um **node** alterando sua propriedade ao longo do tempo. O pacote responsável por isso é o `javafx.animation`. Algumas das animações disponíveis são: **Fade Transition, Fill Transition, Rotate Transition, Scale Transition, Stroke Transition, Translate Transition, Path Transition, Sequential Transition, Pause Transition, Parallel Transition etc.**
+
+Cada transição é representada por um classe. Para aplicar a transição em um objeto devemos seguir os seguintes passos:
+
+* Criar o **node**.
+* Instânciar a classe de animação.
+* Definir as propriedades da animação.
+* Reproduzir a transição com o método **play()**.
+
+### Exemplo - Transição Rotate
+
+```java
+Polygon hexagon = new Polygon();
+        
+hexagon.getPoints().addAll(new Double[]{
+    200.0, 50.0,
+    400.0, 50.0,
+    450.0, 150.0,
+    400.0, 250.0,
+    200.0, 250.0,
+    150.0, 150.0,
+});
+
+hexagon.setFill(Color.BLUE);
+
+RotateTransition rotateTransition = new RotateTransition();
+rotateTransition.setDuration(Duration.millis(1000));
+rotateTransition.setNode(hexagon);
+rotateTransition.setByAngle(360);
+rotateTransition.setCycleCount(50);
+rotateTransition.setAutoReverse(false);
+rotateTransition.play();
+```
+
+### Exemplo - Transição de Scale
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(135.0f);
+circle.setRadius(50.0f);
+circle.setFill(Color.BROWN);
+circle.setStrokeWidth(20);
+
+ScaleTransition scaleTransition = new ScaleTransition();
+scaleTransition.setDuration(Duration.millis(1000));
+scaleTransition.setNode(circle);
+scaleTransition.setByY(1.5);
+scaleTransition.setByX(1.5);
+scaleTransition.setCycleCount(50);
+scaleTransition.setAutoReverse(false);
+scaleTransition.play();
+```
+
+### Exemplo - Transição Translate
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(150.0f);
+circle.setCenterY(135.0f);
+circle.setRadius(100.0f);
+circle.setFill(Color.BROWN);
+circle.setStrokeWidth(20);
+
+TranslateTransition translateTransition = new TranslateTransition();
+translateTransition.setDuration(Duration.millis(1000));
+translateTransition.setNode(circle);
+translateTransition.setByX(300);
+translateTransition.setByY(50);
+translateTransition.setAutoReverse(true);
+translateTransition.play();
+```
+
+### Mais animações
+
+O JavaFX possui diferças classes para aplicar transição aos **nodes**. Para saber mais:
+
+* Transições que afetam atributos [Fade, Fill, Stroke](https://www.tutorialspoint.com.javafx/javafx_geometrical_transitions.htm)
+* Transição que envolve mais de uma [Sequential, Parallel, Pause](https://www.tutorialspoint.com.javafx/javafx_sequential_parallel.htm)
+* Transição que translada o objeto ao longo do caminho especificado [Path Transition](https://www.tutorialspoint.com.javafx/javafx_path_transition.htm)
+
+## Colors

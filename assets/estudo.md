@@ -1082,3 +1082,93 @@ text.setFill(radialGradient);
 ![cores-radial-gradiente](img/cores-radial-gradiente.png)
 
 ## Images
+
+O JavaFX possui suporte a vários tipos de imagens que é provido pela biblioteca `javafx.scene.image` vamos brincar um pouco com ela.
+
+### Carregando uma imagem
+
+Quem irá fazer o meio de campo é a classe **Image**, podemos passar a imagem de duas forma a esse objeto.
+
+* Um objeto **InputStream** da imagem.
+* A URL de uma imagem.
+
+Depois que carregamos a imagem a usaremos como parâmetro para o contruor da classe **ImageView**, ela é o nosso **node**.
+
+### Exemplo - Carregando Imagem Apartir De Um Arquivo
+
+```java
+Image image = new Image(new FileInputStream("caminho à imagem"));
+       
+ImageView imageView = new ImageView(image);
+imageView.setX(50);
+imageView.setY(25);
+imageView.setFitHeight(455);
+imageView.setFitWidth(500);
+
+Group root = new Group(imageView); 
+```
+
+![image-unica](img/imagem-unica.png)
+
+### Exemplo - Exibindo A Imagem Várias Vezes
+
+```java
+Image image = new Image(new FileInputStream("Caminho à Imagem"));
+       
+ImageView imageView = new ImageView(image);
+imageView.setX(50);
+imageView.setY(25);
+imageView.setFitHeight(200);
+imageView.setFitWidth(250);
+imageView.setPreserveRatio(true);
+
+ImageView imageView2 = new ImageView(image);
+imageView2.setX(300);
+imageView2.setY(25);
+imageView2.setFitHeight(150);
+imageView2.setFitWidth(250);
+imageView2.setPreserveRatio(true);
+
+ImageView imageView3 = new ImageView(image);
+imageView3.setX(350);
+imageView3.setY(200);
+imageView3.setFitHeight(100);
+imageView3.setFitWidth(100);
+imageView3.setPreserveRatio(true);
+
+Group root = new Group(imageView, imageView2, imageView3); 
+```
+
+![imagem-varias](img/image-varias.png)
+
+### Exemplo - Writing Pixel
+
+Podemos criar uma imagem gravável com a classe **WritableImage**, e ler ou escrever pixels nela com as classes **PixelReader** e **PixelWriter**.
+
+```java
+Image image = new Image(new FileInputStream("Caminho à Imagem"));
+       
+int width = (int)image.getWidth();
+int height = (int)image.getHeight();
+
+WritableImage writableImage = new WritableImage(width, height);
+PixelReader pixelReader = image.getPixelReader();
+PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+for(int y = 0; y < height; y++){
+    for(int x = 0; x < width; x++){
+        Color color = pixelReader.getColor(x, y);
+        pixelWriter.setColor(x, y, color.darker());
+    }
+}
+
+ImageView imageView = new ImageView(writableImage);
+imageView.setX(50);
+imageView.setY(25);        
+
+Group root = new Group(imageView); 
+```
+
+![image-writableImage](img/image-writableImage.png)
+
+## Forma 3D

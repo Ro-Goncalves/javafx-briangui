@@ -914,3 +914,171 @@ O JavaFX possui diferças classes para aplicar transição aos **nodes**. Para s
 * Transição que translada o objeto ao longo do caminho especificado [Path Transition](https://www.tutorialspoint.com.javafx/javafx_path_transition.htm)
 
 ## Colors
+
+O pacote `javafx.scene.paint` possui a classe abstrata **Paint** que é usada como base em todas as classes que aplicam cores. Com essas classes podemos aplicar corres com os seguintes padrões:
+
+* **Uniform** - Aplica a cor de forma uniforme.
+* **Image Pattern** - Preenche o **node** com uma padrão de imagem.
+* **Gradient** - A cor varia de um ponto a outro. Pode ser **Linear Gradiente e Radial Gradient**.
+
+Os **nodes** que permitem a aplicação de cor possuem os métodos `setFill()` e `setStroke()`, *Fill* preenche o **node** e *stroke* pinta a borda. Esses métodos recebem como parâmetro um objeto do tipo **Paint**.
+
+### Aplicando cores aos nodes
+
+```java
+//Definindo a cor do node
+text.setFill(Color.BEIGE)
+
+//Definindo a cor da borda
+Color color = new Color.DARKSLATEBLUE
+circle.setStroke(color)
+```
+
+Além de utilizar os valores estáticos para cores, podemos usar o padrão RGB, HSB ou o hash das cores.
+
+```java
+//RGB
+Color c = Color.rgb(0, 0, 255);
+
+//HSB
+Color c = Color.hsb(270, 1.0, 1.0);
+
+//Hash
+Color c = Color.web("0x0000FF", 1.0)
+```
+
+#### Exemplo - Uniform
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(180.0f);
+circle.setRadius(90.0f);
+
+circle.setFill(Color.DARKRED);
+
+circle.setStrokeWidth(3);
+circle.setStroke(Color.DARKSLATEBLUE);
+
+Text text = new Text("Brian - Gui - Colored");
+text.setFont(Font.font("Edwardian Script ITC", 50));
+text.setX(100);
+text.setY(50);
+
+text.setFill(Color.BEIGE);
+
+text.setStrokeWidth(3);
+text.setStroke(Color.DARKSLATEBLUE);
+```
+
+![cores-uniforme](img/cores-uniformes.png)
+
+#### Exemplo - Image Pattern
+
+O construtor de **ImagePattern** pode receber os seguintes parâmetros:
+
+* **Image** - O objeto image que será usado como padrão.
+* **X e Y** - Coordenadas da origem do retângulo de âncora.
+* **height e width** - Altura e Lagura da imagem padrão.
+* **isProportional** - Se *true* os locais de início e fim serão definidos como proporcionais.
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(180.0f);
+circle.setRadius(90.0f);       
+
+Text text = new Text("Brian - Gui - ImagePartterned");
+text.setFont(Font.font("Edwardian Script ITC", 50));
+text.setX(50);
+text.setY(50);
+
+String link = "https://encrypted-tbn1.gstatic.com" 
+    + "/images?q=tbn:ANd9GcRQub4GvEezKMsiIf67U" 
+    + "rOxSzQuQ9zl5ysnjRn87VOC8tAdgmAJjcwZ2qM";
+
+Image image = new Image(link);
+ImagePattern radialGradiente = new ImagePattern(image, 20, 20, 40, 40, false);
+
+circle.setFill(radialGradiente);
+text.setFill(radialGradiente);
+```
+
+![cores-image-pattern]
+
+#### Exemplo - Linear Gradient
+
+O construtor de **LinearGradient** pode receber os seguintes parâmetros:
+
+* **startX, startY** - Representa a coordenada XY do ponto inicial.
+* **endX, endY** -  Representa a coordenada XY do ponto final.
+* **cycleMethod** - Define como preencher os pontos que estão fora das coordenadas iniciais e final.
+* **proportional** - Se true as coordenadas iníciais e finais serão tratadas como uma proporção.
+* **Stops** - Pontos de parada da cor durante a linha do gradiente.
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(180.0f);
+circle.setRadius(90.0f);
+
+circle.setFill(Color.DARKRED);
+
+circle.setStrokeWidth(3);
+circle.setStroke(Color.DARKSLATEBLUE);
+
+Text text = new Text("BrianGui - LinearGradient");
+text.setFont(Font.font("Edwardian Script ITC", 50));
+text.setX(5);
+text.setY(50);
+
+Stop[] stops = new Stop[]{
+    new Stop(0, Color.DARKSLATEBLUE),
+    new Stop(1, Color.DARKRED),
+};
+
+LinearGradient linearGradient = 
+    new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
+
+circle.setFill(linearGradient);
+text.setFill(linearGradient);
+```
+
+![cores-linear-gradient](img/cores-linear-gradiente.png)
+
+#### Exemplo - Radial Gradient
+
+O construtor de **RadialGradient** pode receber os mesmos parâmetros de [LinearGradient](#exemplo---linear-gradient)
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(180.0f);
+circle.setRadius(90.0f);
+
+circle.setFill(Color.DARKRED);
+
+circle.setStrokeWidth(3);
+circle.setStroke(Color.DARKSLATEBLUE);
+
+Text text = new Text("BrianGui - RadialGradient");
+text.setFont(Font.font("Edwardian Script ITC", 50));
+text.setX(5);
+text.setY(50);
+
+Stop[] stops = new Stop[]{
+    new Stop(0.0, Color.WHITE),
+    new Stop(0.3, Color.RED),
+    new Stop(1.0, Color.DARKRED),
+};
+
+RadialGradient radialGradient = 
+    new RadialGradient(0, 0, 300, 178, 60, false, CycleMethod.NO_CYCLE, stops);
+
+circle.setFill(radialGradient);
+text.setFill(radialGradient);
+```
+
+![cores-radial-gradiente](img/cores-radial-gradiente.png)
+
+## Images

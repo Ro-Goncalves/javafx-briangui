@@ -1372,3 +1372,41 @@ scene.setCamera(camera);
 ![material](img/material.png)
 
 ## Event Heandling
+
+Sempre que o usuário interagir com um **node** podemos executar alguma ação, por exemplo ao clicar em um botão abriremos uma janela, ao sair de um campo de texto abriremos uma janela, assim por diante.
+
+### Tipos De Evento
+
+Existem duas categorias de eventos:
+
+* **Foreground Events** - São eventos executados após a interação do usuário com o aplicativo.
+* **Background Events** - São eventos executados sem a interação do usuário.
+
+### Eventos em JavaFX
+
+A classe **Event** do pacote `javafx.event` é a base para uma ampla variedades de eventos, a instância de uma das suas subclasses é um evento. Alguns dos eventos são:
+
+* **Mouse Event** - São eventos oriundos da interação do mouse com o aplicativo, por exemplo: *clicar com o mouse, precionar uma tecla do mouse, soltar a tecla do mouse, mover o mouse, entrar com o mouse no **node**, sair com o mouse do **node***.
+* **Key Event** - São eventos oriundos da interação do teclado com o aplicativo, por exemplo: *apertar uma tecla, soltar um tecla e tipo de tecla.*
+* **Drag Event** - São eventos oriundos da interação de arrastar algo com o mouse sobre um **node** no aplicativo, são exemplo: *arrastar e soltar, arrastar e sair etc.*
+* **Window Event** - São eventos relacionados a ações de exibição/ocultação de janelas. Inclui ações como: *ocultação de janela, janela aberta, janela oculta, janela em exibição etc.*
+
+### Manipulação De Eventos
+
+*Event Handling* é um mecânismo que contrala e vento e decide o que deve acontecer, ele possui um código chamado manipulador de eventos. O JavaFX fornece *handlers* e *filters* para manipular os eventos. Todo evento possui:
+
+* **Target** - **Node** em que o evento aconteceu.
+* **Source** - A fonte do evento: mouse, teclado etc.
+* **Type** - Tipo do evento, um dos mencionados na seção anterior.
+
+### Fases Da Manipulaçao De Eventos No JavaFX
+
+Sempre que acontece um evento, o JavaFX segue o seguinte caminho.
+
+#### Route Construction
+
+É criado um caminho pelos na arvores de **nodes** desda **Stage** até o **Targer Node**, a isso é dado o nome **Event Dispatch Chain**. Por exemplo: Ao clicarmos no botão *Play* em uma aplicação, o caminho poderia ser: *Stage -> Scene -> Group -> Play Button*.
+
+#### Event Capturing
+
+Após esse contrução, o **node** raiz despacha o evento. O evento passará nos **nodes** de cima para baixo. Caso algum desses **nodes** possua um **filter** para esse evento, ele será executado, se ninguém o tiver, ele chegará o **root node**, terminando o processo.

@@ -1172,3 +1172,203 @@ Group root = new Group(imageView);
 ![image-writableImage](img/image-writableImage.png)
 
 ## Forma 3D
+
+No geral, é uma figura geométrica que pode ser desenhada no plano XYZ, como os **Cilindros, Esferar, Cubos**. Cada forma é representada por uma classe que pertence ao pacote `javafx.scene.shape`. A classe mão de todas é a **Shape3D**.
+
+|Forma|Descrição|
+|:---|:---|
+|**Box**| Ao instâncias passamos os parâmetros: **width, height e depth**.|
+|**Cylinder**| Ao instânciar passamos os parâmetros: **heigth e radius**.|
+|**Sphere**| Ao instânciar passamos os parâmetros: **radius**.|
+
+### Criando Um Forma 3D
+
+O passo a passo é semelhante a todos os outros:
+
+* Intânciar a classe da forma 3D.
+* Definiar as propriedades da forma.
+* Adicionar a forma ao grupo.
+
+### Propriedades De Objetos 3D
+
+Podemos definir algumas propriedades dos objetos 3D, tais como: **Cull Face, Drawing Mode e Material**.
+
+#### Cull Face
+
+Esse propriedade remove pode remover as partes do objeto que não estão visíveis. A classe **CullFace** é que representa as propriedades que podem ser configurada no objeto 3D através do método `setCullFace()`. Exitem três propriedades possíveis:
+
+* **NONE** - Nenhum culling(abate) é realizado - `CullFace.NONE`.
+* **FRONT** - Todos os poligonos voltados para a frente são selecionados - `CullFace.FRONT`.
+* **BACK** - Todos os poligonos voltados para a trás são selecionados - `CullFace.BACK`.
+
+##### Exemplo - Cull Face
+
+```java
+Sphere sphere1 = new Sphere();
+sphere1.setRadius(50.0);
+sphere1.setTranslateX(100);
+sphere1.setTranslateY(150);
+sphere1.setCullFace(CullFace.FRONT);
+
+Sphere sphere2 = new Sphere();
+sphere2.setRadius(50.0);
+sphere2.setTranslateX(300);
+sphere2.setTranslateY(150);
+sphere2.setCullFace(CullFace.BACK);
+
+Sphere sphere3 = new Sphere();
+sphere3.setRadius(50.0);
+sphere3.setTranslateX(500);
+sphere3.setTranslateY(150);
+sphere3.setCullFace(CullFace.NONE);
+
+//Criando o group e passando a linha como parâmetro
+Group root = new Group(sphere1, sphere2, sphere3);
+```
+
+![cull-face](img/cull-face.png)
+
+#### Draw Mode
+
+É uma propriedade do tipo **DrawMode**, define o modo como o qual a figura 3D será desenhada. Temos disponíveis às seguintes propriedades:
+
+* **FILL** - Desenha a figura preenchida - `DrawMode.FILL`
+* **LINE** - Desenha a figura sem preenchimento - `DrawMode.LINE`
+
+##### Exemplo - Draw Mode
+
+```java
+Box box1 = new Box();
+box1.setWidth(100.0);
+box1.setHeight(100.0);
+box1.setDepth(100.0);
+box1.setTranslateX(200);
+box1.setTranslateY(150);
+box1.setTranslateZ(0);
+
+box1.setDrawMode(DrawMode.LINE);
+
+Box box2 = new Box();
+box2.setWidth(100.0);
+box2.setHeight(100.0);
+box2.setDepth(100.0);
+box2.setTranslateX(450);
+box2.setTranslateY(150);
+box2.setTranslateZ(0);
+
+box2.setDrawMode(DrawMode.FILL);
+
+Group root = new Group(box1, box2);
+
+Scene scene = new Scene(root, 600, 300);
+
+PerspectiveCamera camera = new PerspectiveCamera(false);
+camera.setTranslateX(0);
+camera.setTranslateY(0);
+camera.setTranslateZ(0);
+scene.setCamera(camera);
+```
+
+![draw-mode](img/draw-mode.png)
+
+#### Material
+
+Os objetos 3D possuem o método `setMaterial()` que recebe um objeto do tipo **Material**. A classe que irá fornecer esses materiais a nós é a **PhongMaterial**, nela encontraremos as seguintes propriedades:
+
+* **bumpMap** - Representa um mapa normal armazenado com uma imagem RGB.
+* **diffuseMap** - Representa uma mapa difuso.
+* **selfIlluminationMap** - Representa um mapa auto-iluminado.
+* **specularMap** - Representa uma mapa especular.
+* **diffuseColor** - Representa uma cor difusa.
+* **specularColor** - Representa uma cor especular.
+* **specularPower** - Representa uma potência especular.
+
+##### Exemplo Material
+
+```java
+Image image = new Image("http://www.tutorialspoint.com/images/tp-logo.gif");
+
+Cylinder cylinder1 = new Cylinder();
+cylinder1.setHeight(130.0f);
+cylinder1.setRadius(30.f);
+cylinder1.setTranslateX(200);
+cylinder1.setTranslateY(75);
+
+PhongMaterial material1 = new PhongMaterial();
+material1.setBumpMap(image);
+cylinder1.setMaterial(material1);
+
+Cylinder cylinder2 = new Cylinder();
+cylinder2.setHeight(130.0f);
+cylinder2.setRadius(30.f);
+cylinder2.setTranslateX(100);
+cylinder2.setTranslateY(75);
+
+PhongMaterial material2 = new PhongMaterial();
+material2.setDiffuseMap(image);
+cylinder2.setMaterial(material2);
+
+Cylinder cylinder3 = new Cylinder();
+cylinder3.setHeight(130.0f);
+cylinder3.setRadius(30.f);
+cylinder3.setTranslateX(400);
+cylinder3.setTranslateY(75);
+
+PhongMaterial material3 = new PhongMaterial();
+material3.setSelfIlluminationMap(image);
+cylinder3.setMaterial(material3);
+
+Cylinder cylinder4 = new Cylinder();
+cylinder4.setHeight(130.0f);
+cylinder4.setRadius(30.f);
+cylinder4.setTranslateX(300);
+cylinder4.setTranslateY(75);
+
+PhongMaterial material4 = new PhongMaterial();
+material4.setSpecularMap(image);
+cylinder4.setMaterial(material4);
+
+Cylinder cylinder5 = new Cylinder();
+cylinder5.setHeight(130.0f);
+cylinder5.setRadius(30.f);
+cylinder5.setTranslateX(300);
+cylinder5.setTranslateY(75);
+
+PhongMaterial material5 = new PhongMaterial();
+material5.setDiffuseColor(Color.BLANCHEDALMOND);
+cylinder5.setMaterial(material5);
+
+Cylinder cylinder6 = new Cylinder();
+cylinder6.setHeight(130.0f);
+cylinder6.setRadius(30.f);
+cylinder6.setTranslateX(200);
+cylinder6.setTranslateY(300);
+
+PhongMaterial material6 = new PhongMaterial();
+material6.setSpecularColor(Color.BLANCHEDALMOND);
+cylinder6.setMaterial(material6);
+
+Cylinder cylinder7 = new Cylinder();
+cylinder7.setHeight(130.0f);
+cylinder7.setRadius(30.f);
+cylinder7.setTranslateX(300);
+cylinder7.setTranslateY(300);
+
+PhongMaterial material7 = new PhongMaterial();
+material7.setSpecularPower(0.1);
+cylinder7.setMaterial(material7);
+
+Group root = new Group(cylinder1, cylinder2, cylinder3, cylinder4, cylinder5, cylinder6, cylinder7);
+
+Scene scene = new Scene(root, 600, 400);
+
+PerspectiveCamera camera = new PerspectiveCamera(false);
+camera.setTranslateX(0);
+camera.setTranslateY(0);
+camera.setTranslateZ(-10);
+scene.setCamera(camera);
+```
+
+![material](img/material.png)
+
+## Event Heandling

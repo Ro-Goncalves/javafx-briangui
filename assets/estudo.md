@@ -1410,3 +1410,169 @@ Sempre que acontece um evento, o JavaFX segue o seguinte caminho.
 #### Event Capturing
 
 Após esse contrução, o **node** raiz despacha o evento. O evento passará nos **nodes** de cima para baixo. Caso algum desses **nodes** possua um **filter** para esse evento, ele será executado, se ninguém o tiver, ele chegará o **root node**, terminando o processo.
+
+#### Event Bubbling
+
+Aqui o evento percorre do **target node** até o **stage node**, de baixo para cima, Caso algum **node** tenha um **handler** cadastrado para esse evento, ele será executado, se não, o processo será finalizado.
+
+#### Event Handlers e Filters
+
+**Handlers e Filters** são objetos que contêm a lógica do evento; um **node** pode ter mais do que um **handler/filter**; os **nodes parent-child** pode possuir **handler/filter** padrões no *parents* que serão executados para todos os *child*.
+
+Em resumo: Durante a fase de **Capturing** é executada a lógica que está no **filter**, durante a fase **bubbling** é executada a lógica que está no **handler**.
+
+Todos os **handlrs e filters** implementam a interface **EventHandler** do pacote `javafx.event`.
+
+### Adiconando e removendo Event Filters
+
+Para adicionar um **filter** devemos utilizar o método `addEventFilter()` do **node**; para remover basta usar o método `removeEventFilter()`.
+
+#### Exemplo - Event Filters
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(135.0f);
+circle.setRadius(25.0f);
+circle.setFill(Color.BROWN);
+
+Text text = new Text("Clique no circulo para trocar sua cor.");
+text.setFont(Font.font(null, FontWeight.BOLD, 15));
+text.setFill(Color.CRIMSON);
+text.setX(150);
+text.setY(50);
+
+EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+    @Override
+    public void handle(MouseEvent e){
+        System.out.println("Oi Sou Brian");
+        circle.setFill(Color.DARKSLATEBLUE);
+    }
+};
+circle.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+```
+
+### Adicionando e removendo Event Handlers
+
+Meio que a mesma coisa do que o **filter**, para adicionar um **handler** usamos o método `addEventHandler()` e para remover `removeEventHandler()`.
+
+#### Exemplo - Event Handler
+
+```java
+Box box = new Box();
+        box.setWidth(150.0);
+        box.setHeight(150.0);
+        box.setDepth(100.0);
+        box.setTranslateX(350);
+        box.setTranslateY(150);
+        box.setTranslateZ(50);
+
+        Text text = new Text("Clique em qualquer letra para rodar a caixa, e clina na caixa para a rotação.");
+        text.setFont(Font.font(null, FontWeight.BOLD, 15));
+        text.setFill(Color.CRIMSON);
+        text.setX(20);
+        text.setY(50);
+
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseColor(Color.DARKSLATEBLUE);
+
+        box.setMaterial(material);
+
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setDuration(Duration.millis(1000));
+        rotateTransition.setNode(box);
+        rotateTransition.setAxis(Rotate.Y_AXIS);
+        rotateTransition.setByAngle(360);
+        rotateTransition.setCycleCount(50);
+        rotateTransition.setAutoReverse(false);
+
+        TextField textField = new TextField();
+        textField.setLayoutX(50);
+        textField.setLayoutY(100);
+
+        EventHandler<KeyEvent> eventHandlerTextField = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e){
+                rotateTransition.play();
+            }
+        };
+        textField.addEventHandler(KeyEvent.KEY_PRESSED, eventHandlerTextField);
+
+        EventHandler<MouseEvent> eventHandlerBox = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e){
+                rotateTransition.stop();
+            }
+        };
+        box.addEventHandler(MouseEvent.MOUSE_CLICKED, eventHandlerBox);
+```
+
+### Usando Convenience Methods para Event Handling
+
+Alguns eventos estão acessíveis via método nos **nodes**, dessa forma podemos registar um evento de *mouse click* usando o método `setOnMouseClicked()` direto no **node**, a esses métodos damos o nome de **Convenience Methods**.
+
+#### Exemplo - Convenience Methods
+
+```java
+Circle circle = new Circle();
+circle.setCenterX(300.0f);
+circle.setCenterY(135.0f);
+circle.setRadius(25.0f);
+circle.setFill(Color.BROWN);
+circle.setStrokeWidth(20);
+
+Path path = new Path();
+
+MoveTo moveTo = new MoveTo(208, 71);
+LineTo line1 = new LineTo(421, 161);
+LineTo line2 = new LineTo(226, 232);
+LineTo line3 = new LineTo(332, 52);
+LineTo line4 = new LineTo(369, 250);
+LineTo line5 = new LineTo(208, 71);
+
+path.getElements().add(moveTo);
+path.getElements().addAll(line1, line2, line3, line4, line5);
+
+PathTransition pathTransition = new PathTransition();
+pathTransition.setDuration(Duration.millis(1000));
+pathTransition.setNode(circle);
+pathTransition.setPath(path);
+pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+pathTransition.setCycleCount(50);
+pathTransition.setAutoReverse(false);
+
+Button playButton = new Button("Play");
+playButton.setLayoutX(300);
+playButton.setLayoutY(250);
+
+circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    @Override
+    public void handle(MouseEvent e){
+        System.out.println("Oi Brian");
+        circle.setFill(Color.DARKSLATEBLUE);
+    }
+});
+
+playButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+
+    @Override
+    public void handle(MouseEvent e) {
+        System.out.println(e.toString());
+        pathTransition.play();
+    }
+    
+}));
+
+Button stopButton = new Button("Stop");
+stopButton.setLayoutX(250);
+stopButton.setLayoutY(250);
+stopButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+
+    @Override
+    public void handle(MouseEvent e) {
+        System.out.println("Oi Brian");
+        pathTransition.stop();
+    }
+    
+}));
+```

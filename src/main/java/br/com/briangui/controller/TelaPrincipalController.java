@@ -1,15 +1,24 @@
 package br.com.briangui.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class TelaPrincipalController implements Initializable {
 
@@ -57,12 +66,13 @@ public class TelaPrincipalController implements Initializable {
 
     @FXML
     void acessarCidadade(ActionEvent event) {
+        abrirFormulario("cidade");
 
     }
 
     @FXML
     void acessarContato(ActionEvent event) {
-
+        abrirFormulario("contato");
     }
 
     @FXML
@@ -97,33 +107,48 @@ public class TelaPrincipalController implements Initializable {
 
     @FXML
     void acessarTipoContato(ActionEvent event) {
+        abrirFormulario("tipo-contato");
 
     }
 
     @FXML
     void acessarUsuario(ActionEvent event) {
-
+        abrirFormulario("usuario");
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {        
-        menuItemContado.setGraphic(new ImageView(getResourceIcons("iconeMenuContato.png")));
-        menuItemTipoContato.setGraphic(new ImageView(getResourceIcons("iconeMenuContatoTipo.png")));
-        menuItemCidade.setGraphic(new ImageView(getResourceIcons("iconeMenuCidade.png")));
-        menuItemUsuario.setGraphic(new ImageView(getResourceIcons("iconeMenuUsuario.png")));
-        menuItemSair.setGraphic(new ImageView(getResourceIcons("iconeMenuSair.png")));
+        menuItemContado.setGraphic(new ImageView(getResourceIcons("iconeMenuContato")));
+        menuItemTipoContato.setGraphic(new ImageView(getResourceIcons("iconeMenuContatoTipo")));
+        menuItemCidade.setGraphic(new ImageView(getResourceIcons("iconeMenuCidade")));
+        menuItemUsuario.setGraphic(new ImageView(getResourceIcons("iconeMenuUsuario")));
+        menuItemSair.setGraphic(new ImageView(getResourceIcons("iconeMenuSair")));
 
-        menuItemRelatorioContatoGeral.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio.png")));
-        menuItemRelatorioContatoEndereco.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio.png")));
-        menuItemRelatorioContatoTelefone.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio.png")));
-        menuItemRelatorioContatoTipo.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio.png")));
+        menuItemRelatorioContatoGeral.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio")));
+        menuItemRelatorioContatoEndereco.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio")));
+        menuItemRelatorioContatoTelefone.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio")));
+        menuItemRelatorioContatoTipo.setGraphic(new ImageView(getResourceIcons("iconeMenuRelatorio")));
 
-        menuItemSistema.setGraphic(new ImageView(getResourceIcons("iconeMenuSobre.png")));
+        menuItemSistema.setGraphic(new ImageView(getResourceIcons("iconeMenuSobre")));
         
     }
 
     private String getResourceIcons(String icone){
-        return TelaPrincipalController.class.getResource("").toString() + "../icons/" + icone;
+        return getClass().getResource("/icons/" + icone + ".png").toString();
+    }
+
+    public void abrirFormulario(String formulario){
+        try {
+            Parent form = FXMLLoader.load(getClass().getResource("/fxml/" + formulario + ".fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(form));
+            stage.setTitle("Formulário");
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

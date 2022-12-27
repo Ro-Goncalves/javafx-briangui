@@ -1576,3 +1576,152 @@ stopButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
     
 }));
 ```
+
+## Controles De IU
+
+Cada interface de usuário possui ao menos três aspectos:
+
+* **UI Elements** - São os elementos com os quais o usuário interage.
+* **Layouts** - Definem como os elementos devem ser organizados.
+* **Behavior** - Eventos que acontecem quando o usuário interage com os elementos.
+
+Cada elemento é representado por uma classe, todas elas estão presentes no pacote `java.scene.control`. Os mais usados podem ser visto na lista a baixo:
+
+|Controle|Descrição|
+|:---|:---|
+|Label|É um componente para colocar texto.|
+|Button|Cria um botão.|
+|ColorPicker|Permite que o usuário manipule e selecione uma cor.|
+|CheckBox|Componente que pode estar ativado ou desativado.|
+|RadioButton|Compopente que pode estar *ON* ou *OFF*.|
+|ListView|Lista de rolagem de texto.|
+|TextField|Permite a edição de uma linha de texto.|
+|PasswordField|Entrada de texto especializada em senha.|
+|Scrollbar|Permite que o usuário selecione um intervalo de valor em uma barra.|
+|FileChooser|Janela de dialogo que permite a seleção de um arquivo.|
+|ProgressBar|Permite demonstrar a progressão da execução de dum processo.|
+|Slider|Possibilita a seleção de um valor deslizando um botão dentro de um intervalo.|
+
+### Exemplo - Tela Login
+
+```java
+Text txEmail = new Text("Email");
+Text txPwd = new Text("Password");
+
+TextField tfEmail = new TextField();
+PasswordField tfPwd = new PasswordField();
+
+Button btnSubmit = new Button("Submit");
+Button btnClear = new Button("Clear");
+
+GridPane gridPane = new GridPane();
+gridPane.setMinSize(400, 200);
+gridPane.setPadding(new Insets(10, 10, 10, 10));
+gridPane.setVgap(5);
+gridPane.setHgap(5);
+gridPane.setAlignment(Pos.CENTER);
+
+gridPane.add(txEmail, 0, 0);
+gridPane.add(tfEmail, 1, 0);
+gridPane.add(txPwd, 0, 1);
+gridPane.add(tfPwd, 1, 1);
+gridPane.add(btnSubmit, 0, 2);
+gridPane.add(btnClear, 1, 2);
+
+btnClear.setStyle("-fx-brackground-color: darkslateblue; -fx-text-fill: white;");
+btnSubmit.setStyle("-fx-brackground-color: darkslateblue; -fx-text-fill: white;");
+txEmail.setStyle("-fx-font: normal bold 20px 'serif' ");
+txPwd.setStyle("-fx-font: normal bold 20px 'serif' ");
+gridPane.setStyle("-fx-brackground-color: BEIGE;");
+
+Scene scene = new Scene(gridPane);
+```
+
+### Exemplo - Formulário De Registro
+
+```java
+Text nameLabel = new Text("Name");
+TextField nameText = new TextField();
+Text dobLabel = new Text("Date of birth");
+DatePicker datePicker = new DatePicker();
+Text genderLabel = new Text("Gender");
+
+ToggleGroup groupGender = new ToggleGroup();
+RadioButton maleRadio = new RadioButton("Male");
+maleRadio.setToggleGroup(groupGender);
+RadioButton femaleRadio = new RadioButton("Female");
+femaleRadio.setToggleGroup(groupGender);
+
+Text reservationLabel = new Text("Reservation");
+ToggleButton yes = new ToggleButton("Yes");
+ToggleButton no = new ToggleButton("No");
+ToggleGroup groupReservation = new ToggleGroup();
+yes.setToggleGroup(groupReservation);
+no.setToggleGroup(groupReservation);
+
+Text technologiestLabel = new Text("Technilogies Known");
+CheckBox javaCheckBox = new CheckBox("Java");
+javaCheckBox.setIndeterminate(false);
+CheckBox dotnetCheckBox = new CheckBox("DotNet");
+dotnetCheckBox.setIndeterminate(false);
+
+Text educationLabel = new Text("Education qualification");
+ObservableList<String> name = FXCollections.observableArrayList(
+    "Engineering", "MCA", "MBA", "Graduation", "MTECH", "Mphil", "Phd"
+);
+ListView<String> educationListView = new ListView<String>(name);
+
+Text locationLabel = new Text("Location");
+ChoiceBox<String> locationChoiceBox = new ChoiceBox<String>();
+locationChoiceBox.getItems().addAll(
+    "Hyderabad", "Chennai", "Delhi", "Mumbai", "Vishkhaptnam"
+);
+
+Button buttonRegister = new Button("Register");
+
+GridPane gridPane = new GridPane();
+gridPane.setMinSize(500, 500);
+gridPane.setPadding(new Insets(10, 10, 10, 10));
+gridPane.setVgap(5);
+gridPane.setHgap(5);
+gridPane.setAlignment(Pos.CENTER);
+
+gridPane.add(nameLabel, 0, 0);
+gridPane.add(nameText, 1, 0);
+
+gridPane.add(dobLabel, 0, 1);
+gridPane.add(datePicker, 1, 1);
+
+gridPane.add(genderLabel, 0, 2);
+gridPane.add(maleRadio, 1, 2);
+gridPane.add(femaleRadio, 2, 2);
+gridPane.add(reservationLabel, 0, 3);
+gridPane.add(yes, 1, 3);
+gridPane.add(no, 2, 3);
+
+gridPane.add(technologiestLabel, 0, 4);
+gridPane.add(javaCheckBox, 1, 4);
+gridPane.add(dotnetCheckBox, 2, 4);
+
+gridPane.add(educationLabel, 0, 5);
+gridPane.add(educationListView, 1, 5);
+
+gridPane.add(locationLabel, 0, 6);
+gridPane.add(locationChoiceBox, 1, 6);
+
+gridPane.add(buttonRegister, 2, 8);
+
+buttonRegister.setStyle(
+    "if-background-color: darkslateblue; -fx-textfill: white;"
+);
+
+nameLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+dobLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+genderLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+reservationLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+technologiestLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+educationLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+locationLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+
+gridPane.setStyle("-fx-background-color: BEIGE;");
+```
